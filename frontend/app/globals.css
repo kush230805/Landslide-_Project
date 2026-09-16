@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-risk-low: var(--risk-low);
+  --color-risk-moderate: var(--risk-moderate);
+  --color-risk-high: var(--risk-high);
+  --color-risk-extreme: var(--risk-extreme);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Deep slate-blue monitoring theme */
+  --background: oklch(0.16 0.014 248);
+  --foreground: oklch(0.96 0.005 250);
+  --card: oklch(0.205 0.016 248);
+  --card-foreground: oklch(0.96 0.005 250);
+  --popover: oklch(0.205 0.016 248);
+  --popover-foreground: oklch(0.96 0.005 250);
+
+  /* Cyan/teal signal accent */
+  --primary: oklch(0.78 0.13 195);
+  --primary-foreground: oklch(0.18 0.02 248);
+
+  --secondary: oklch(0.26 0.017 248);
+  --secondary-foreground: oklch(0.96 0.005 250);
+  --muted: oklch(0.24 0.015 248);
+  --muted-foreground: oklch(0.68 0.014 250);
+  --accent: oklch(0.28 0.02 248);
+  --accent-foreground: oklch(0.96 0.005 250);
+
+  --destructive: oklch(0.62 0.2 25);
+
+  --border: oklch(0.3 0.016 248);
+  --input: oklch(0.28 0.016 248);
+  --ring: oklch(0.78 0.13 195);
+
+  --radius: 0.75rem;
+
+  /* Risk color system (kept in sync with lib/risk/risk-utils.ts) */
+  --risk-low: #22c55e;
+  --risk-moderate: #eab308;
+  --risk-high: #f97316;
+  --risk-extreme: #ef4444;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Leaflet dark-surface tweaks */
+.leaflet-container {
+  background: oklch(0.14 0.014 248);
+  font-family: var(--font-sans);
+}
+/* Render free OSM tiles as a dark basemap to match the monitoring theme. */
+.map-dark .leaflet-tile-pane {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg)
+    saturate(0.35) brightness(0.75);
+}
+.leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+.leaflet-control-attribution a {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.leaflet-bar a {
+  background: oklch(0.22 0.016 248) !important;
+  color: oklch(0.95 0.005 250) !important;
+  border-color: oklch(0.3 0.016 248) !important;
+}
+.leaflet-bar a:hover {
+  background: oklch(0.28 0.02 248) !important;
+}
+.risk-tooltip {
+  background: oklch(0.2 0.016 248) !important;
+  color: oklch(0.96 0.005 250) !important;
+  border: 1px solid oklch(0.34 0.016 248) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 9px !important;
+}
+.risk-tooltip::before {
+  display: none !important;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
