@@ -1,6 +1,6 @@
 from sqlalchemy import select 
-from app.core.database import SessionLocal
-from app.models.ner_grid import NerGrid
+from backend.app.core.database import SessionLocal
+from backend.app.models.ner_grid import NerGrid
 
 try:
     with SessionLocal() as session:
